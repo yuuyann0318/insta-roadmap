@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プロアカウントへの切り替え方法</title>
+<style>
+/* ============================================================
+   プロアカウント設定ガイド（ロードマップと同じデザイン言語）
+   完全自己完結：CDN／外部フォント／外部画像 ゼロ。絵文字アイコン。
+   ============================================================ */
+:root{
+  --primary:#3b82f6;
+  --primary-dark:#2563eb;
+  --accent:#f97316;
+  --accent-dark:#ea580c;
+  --grad-primary:linear-gradient(135deg,#3b82f6,#2563eb);
+  --grad-accent:linear-gradient(135deg,#fb923c,#f97316 55%,#ea580c);
+  --bg:#eef1f6;
+  --card:#ffffff;
+  --text:#0f172a;
+  --text-mid:#334155;
+  --text-sub:#475569;
+  --line:#e2e8f0;
+  --radius:20px;
+  --shadow-soft:0 1px 3px rgba(15,23,42,.06);
+  --shadow-card:0 1px 2px rgba(15,23,42,.04), 0 10px 24px -10px rgba(15,23,42,.14), 0 28px 50px -28px rgba(15,23,42,.20);
+  --font:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP',system-ui,sans-serif;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+body{
+  font-family:var(--font);
+  color:var(--text);
+  line-height:1.85;
+  overflow-wrap:anywhere;
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 620px at 82% -12%, rgba(59,130,246,.12), transparent 60%),
+    radial-gradient(900px 520px at -12% 112%, rgba(249,115,22,.10), transparent 55%),
+    var(--bg);
+  background-attachment:fixed;
+}
+a{ color:var(--primary-dark); }
+:focus-visible{ outline:3px solid rgba(59,130,246,.55); outline-offset:2px; border-radius:6px; }
+
+.wrap{ max-width:760px; margin:0 auto; padding:0 16px; }
+
+/* ヘッダー */
+.app-header{
+  background:var(--grad-primary); color:#fff; box-shadow:0 6px 24px -8px rgba(37,99,235,.55);
+}
+.app-header .wrap{ padding:22px 16px 24px; }
+.app-title{ font-size:1.4rem; font-weight:800; letter-spacing:-.01em; display:flex; align-items:center; gap:10px; }
+.app-title .logo{ font-size:1.6rem; filter:drop-shadow(0 2px 4px rgba(0,0,0,.2)); }
+.app-lead{ margin-top:10px; font-size:.95rem; color:rgba(255,255,255,.95); line-height:1.8; }
+
+/* 本文 */
+main.wrap{ padding:26px 16px 56px; }
+.intro-note{
+  background:linear-gradient(135deg,#f0f7ff,#eef4ff); border:1px solid #dbeafe; border-left:5px solid var(--primary);
+  border-radius:15px; padding:15px 18px; margin-bottom:22px; font-size:.93rem; color:var(--text-mid); font-weight:600;
+}
+
+.section-title{ font-size:1.05rem; font-weight:800; color:var(--text); margin:6px 2px 14px; display:flex; align-items:center; gap:8px; }
+
+.steps{ display:flex; flex-direction:column; gap:12px; margin-bottom:26px; }
+.step-card{
+  position:relative; display:flex; gap:15px; align-items:flex-start;
+  background:var(--card); border:1px solid rgba(226,232,240,.85); border-radius:16px;
+  padding:17px 18px; box-shadow:var(--shadow-card);
+  transition:transform .14s var(--ease), box-shadow .25s;
+}
+.step-card:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -14px rgba(15,23,42,.25); }
+.step-num{
+  flex-shrink:0; width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--grad-primary); color:#fff; font-size:1.05rem; font-weight:800;
+  box-shadow:0 5px 12px -3px rgba(37,99,235,.5);
+}
+.step-text{ font-size:1rem; color:var(--text-mid); font-weight:600; line-height:1.7; padding-top:5px; }
+.step-card.is-done .step-num{ background:var(--grad-accent); box-shadow:0 5px 12px -3px rgba(249,115,22,.5); }
+
+/* ポイント（注記） */
+.points{
+  background:#fffbeb; border:1px solid #fde68a; border-radius:15px; padding:16px 18px; margin-bottom:28px;
+}
+.points h3{ font-size:.95rem; font-weight:800; color:#92400e; margin-bottom:9px; }
+.points ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+.points li{ font-size:.9rem; color:#78533a; line-height:1.7; padding-left:22px; position:relative; }
+.points li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--accent-dark); font-weight:800; }
+.points li.is-caution::before{ content:'⚠️'; font-size:.85rem; }
+
+/* 戻るリンク */
+.back-link{
+  display:inline-flex; align-items:center; gap:8px; width:100%; justify-content:center;
+  padding:16px; border-radius:15px; background:var(--grad-primary); color:#fff;
+  font-size:1.02rem; font-weight:800; text-decoration:none;
+  box-shadow:0 8px 20px -6px rgba(37,99,235,.5); transition:transform .15s var(--ease), box-shadow .25s;
+}
+.back-link:hover{ transform:translateY(-2px); box-shadow:0 12px 26px -6px rgba(37,99,235,.6); }
+.back-link:active{ transform:translateY(0) scale(.985); }
+
+.footer{ text-align:center; font-size:.76rem; color:var(--text-sub); padding:22px 16px 8px; line-height:1.8; }
+
+@media (max-width:560px){
+  .app-title{ font-size:1.2rem; }
+  .app-lead{ font-size:.9rem; }
+  main.wrap{ padding:20px 14px 48px; }
+  .step-card{ padding:15px 15px; gap:13px; }
+  .step-num{ width:34px; height:34px; font-size:1rem; }
+  .step-text{ font-size:.97rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="wrap">
+    <h1 class="app-title"><span class="logo">📱</span><span>プロアカウントへの切り替え方法</span></h1>
+    <p class="app-lead">プロアカウントにすると「何人が見たか」などの数字（インサイト）が見られるようになります。無料だよ！</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="intro-note">💡 下の順番どおりにタップしていけば、3分くらいで切り替えられます。むずかしくないよ！</div>
+
+  <div class="section-title">📲 設定の手順</div>
+  <div class="steps">
+    <div class="step-card"><span class="step-num" aria-hidden="true">1</span><span class="step-text">インスタのアプリを開いて、右下の「自分のアイコン」をタップ（プロフィール画面へ）</span></div>
+    <div class="step-card"><span class="step-num" aria-hidden="true">2</span><span class="step-text">右上の「≡（三本線）」→「設定とプライバシー」をタップ</span></div>
+    <div class="step-card"><span class="step-num" aria-hidden="true">3</span><span class="step-text">「アカウントの種類とツール」をタップ</span></div>
+    <div class="step-card"><span class="step-num" aria-hidden="true">4</span><span class="step-text">「プロアカウントに切り替える」をタップ</span></div>
+    <div class="step-card"><span class="step-num" aria-hidden="true">5</span><span class="step-text">「クリエイター」か「ビジネス」を選ぶ（発信メインなら「クリエイター」でOK）</span></div>
+    <div class="step-card"><span class="step-num" aria-hidden="true">6</span><span class="step-text">自分に近い「カテゴリ」を選ぶ（迷ったら「デジタルクリエイター」）</span></div>
+    <div class="step-card is-done"><span class="step-num" aria-hidden="true">7</span><span class="step-text">連絡先などは「スキップ」でOK → 完了！🎉</span></div>
+  </div>
+
+  <div class="points">
+    <h3>✅ 覚えておくと安心なポイント</h3>
+    <ul>
+      <li>いつでも個人アカウントに戻せます（同じ場所から）。</li>
+      <li>カテゴリは後から変更OK。</li>
+      <li class="is-caution">アプリのバージョンで、メニュー名や場所が少し違うことがあります。その時は「設定」内で「プロアカウント」を探してね。</li>
+    </ul>
+  </div>
+
+  <a class="back-link" href="index.html">← ロードマップに戻る</a>
+
+  <div class="footer">© インスタ集客ロードマップ ／ プロアカウント設定ガイド</div>
+
+</main>
+
+</body>
+</html>
